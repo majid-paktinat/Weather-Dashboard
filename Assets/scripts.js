@@ -2,7 +2,7 @@ let citySearched;
 let tempSearched = [];
 let latSearched;
 let lonSearched;
-let uvAmount = [];
+let uvAmount;
 let humiditySearched = [];
 let windSearched = [];
 let iconSearched = [];
@@ -70,11 +70,13 @@ function getCityResponse( response ){
                         // calling renderButtons which handles the processing of our city array
                         renderButtons();
                         
-            } else {//do nothing} // when a city from the history, searched again
+            } else { 
+                //do nothing
+            }
+             
             
             updatePage();
             console.log("searchBtn click DONE! -- new city searched and has result");
-            }
             
 }
 function getCityError( errorStatus ) {
@@ -98,6 +100,7 @@ function uvCall( latSearched, lonSearched ){
 function getUvResponse( response ){
     //console.log(response);
     uvAmount = response.value;
+    $("#uvMain").html(`${uvAmount}`);
 }
 function getUvError( errorStatus ) {
     console.log(`<.Fail> callback <${errorStatus}>`);
@@ -200,5 +203,19 @@ function renderButtons() {
 }
         
 function updatePage(){
-    // do nothing
+    
+    
+    $("#cityName").html(`<h2>${citySearched} (${dateSearched[0]})</h2>`);
+    $("#currentWeatherIcon").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[0]}@2x.png`);
+    $("#tempMain").html(`Temperature: ${tempSearched[0]} &deg;F`);
+    $("#humidityMain").html(`Humidity: ${humiditySearched[0]}`);
+    $("#windMain").html(`Wind Speed: ${windSearched[0]["speed"]} MPH`);
+    //$("#uvMain").html(`${uvAmount}`); it is updated in getUvResponse()
+    
+
+    // moments().today().format
+    // fill boxes
+    // opacity bazi 
+    // display empty message
+    
 }

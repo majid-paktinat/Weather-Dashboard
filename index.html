@@ -23,7 +23,7 @@
             <div class="col-left col-3">
                 
                 <div class="col-12" id="searchLabel"><h4><b>Search for a City:</b></h4></div>
-                <div class="col-12" style="border: solid 0px; padding-left: 2px; margin-top: 10px; margin-bottom: 20px;">
+                <div class="col-12 " style="border: solid 0px; padding-left: 2px; margin-top: 10px; margin-bottom: 20px;">
                     <form id="search-form">
                         <!--in 2 ta ke intori michasban-->
                         <input type="text" id="seachText" style="padding-bottom: 5px;"><button class="btn" type="submit" id="searchBtn" style="padding-bottom: 5px;"><i class="fa fa-search"></i></button>
@@ -41,14 +41,14 @@
                 <div class="row"  >
                     <div class="col cityInfo" style="margin-left: 15px; margin-right: 15px; margin-top:20px ;">
                         <div class="row" style="border: solid 0px; padding-left: 10px; padding-right: 10px; padding-top:20px">
-                            <span><h2>11111</h2></span>&nbsp;<img id="currentWeatherIcon" src="../ff.jpg" style="border: solid 0px; padding-left: 10px; padding-top:10px; padding-right: 10px;">
+                            <span id="cityName" style="margin-right: 10px;"><h2>&nbsp</h2></span>&nbsp;<img id="currentWeatherIcon" src="" style="border: solid 0px; padding-left: 5px; padding-top:0px; padding-right: 0px; margin-top: -32px;">
                         </div>
-                        <div style="margin-top: 10px; padding-left: 0px;" class="col"><span style="color: gray; font-size: 15px;">Temperature:</span> </div>  
-                        <div style="margin-top: 10px; padding-left: 0px;" class="col"><span style="color: gray; font-size: 15px;">Humidity:</span> </div>  
-                        <div style="margin-top: 10px; padding-left: 0px;" class="col"><span style="color: gray; font-size: 15px;">Wind Speed:</span> </div>  
+                        <div style="margin-top: 10px; padding-left: 0px;" class="col"><span id="tempMain" style="color: gray; font-size: 15px;">Temperature:</span> </div>  
+                        <div style="margin-top: 10px; padding-left: 0px;" class="col"><span id="humidityMain" style="color: gray; font-size: 15px;">Humidity:</span> </div>  
+                        <div style="margin-top: 10px; padding-left: 0px;" class="col"><span id="windMain" style="color: gray; font-size: 15px;">Wind Speed:</span> </div>  
                         <div style="margin-top: 10px; padding-left: 0px; border: solid 0px;" class="col">
                             <span style="color: gray; font-size: 15px;">UV Index:</span>
-                            <span style="color: white; background-color:#DB3348; padding-left: 10px; border-radius: 5px; padding-right: 10px; padding-top: 2px; padding-bottom: 3px;">9.49</span>
+                            <span id="uvMain" style="color: white; background-color:#DB3348; padding-left: 10px; border-radius: 5px; padding-right: 10px; padding-top: 2px; padding-bottom: 3px;">uvMain</span>
                         </div> 
                         <div style="margin-top: 10px; padding-left: 0px;" class="col"><span style="color: gray; font-size: 15px;">&nbsp</span> </div>  
                     </div>
@@ -65,7 +65,7 @@
                     
                 
                 <div class="row" style="margin-left: 5px; margin-right: 5px;">
-                    <div class="fiveDiv col" >
+                    <div class="fiveDiv col-sm-12 col-lg" >
                         <span style="color: white; font-size: 20px;">Data!!!</span><br>
                         <img class="imgForecast" id="imgDay1" style="opacity: 1;"><br>
                         <span style="color: white; font-size: 15px;">Temp:</span><br>
@@ -74,7 +74,7 @@
                     <span style="margin-left: 5px; margin-right: 5px;">&nbsp</span>
                     
 
-                    <div class="fiveDiv col" >
+                    <div class="fiveDiv col-sm-12 col-lg" >
                         <span style="color: white; font-size: 20px;">Data!!!</span><br>
                         <img class="imgForecast" id="imgDay1" style="opacity: 1;"><br>
                         <span style="color: white; font-size: 15px;">Temp:</span><br>
@@ -83,7 +83,7 @@
                     <span style="margin-left: 5px; margin-right: 5px;">&nbsp</span>
                     
 
-                    <div class="fiveDiv col" >
+                    <div class="fiveDiv col-sm-12 col-lg" >
                         <span style="color: white; font-size: 20px;">Data!!!</span><br>
                         <img class="imgForecast" id="imgDay1" style="opacity: 1;"><br>
                         <span style="color: white; font-size: 15px;">Temp:</span><br>
@@ -92,7 +92,7 @@
                     <span style="margin-left: 5px; margin-right: 5px;">&nbsp</span>
 
 
-                    <div class="fiveDiv col" >
+                    <div class="fiveDiv col-sm-12 col-lg" >
                         <span style="color: white; font-size: 20px;">Data!!!</span><br>
                         <img class="imgForecast" id="imgDay1" style="opacity: 1;"><br>
                         <span style="color: white; font-size: 15px;">Temp:</span><br>
@@ -101,7 +101,7 @@
                     <span style="margin-left: 5px; margin-right: 5px;">&nbsp</span>
 
 
-                    <div class="fiveDiv col" >
+                    <div class="fiveDiv col-sm-12 col-lg" >
                         <span style="color: white; font-size: 20px;">Data!!!</span><br>
                         <img class="imgForecast" id="imgDay1" style="opacity: 1;"><br>
                         <span style="color: white; font-size: 15px;">Temp:</span><br>
