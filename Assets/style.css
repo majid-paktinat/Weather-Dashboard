@@ -1,0 +1,70 @@
+.container{
+    background-color:#36393E;
+}
+.header{
+    color: white;
+    font-size: 40px;
+    padding: 10px;
+}
+#searchBtn{
+    color: white;
+    background-color:#0C7FF5;
+    margin: 0px;
+    display: inline-block;
+}
+#searchLabel{
+    color: #494949;
+    padding-top: 2px;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+.wheader{
+    text-align: center;
+}
+
+#buttonList{
+    margin-left: 2px;
+}
+
+.col-left{
+    background-color: #F8F9FB;
+    
+}
+.col-right{
+    background-color: white;
+    
+}
+.searchSec{
+    background-color: lightgreen;
+    border: solid 1px;
+}
+.searchHistorySec{
+    margin-left: 10px;
+    margin-right: 2px;
+}
+.historyBtn{
+    display: block;
+    width: 100%;
+    border: solid 1px;
+    border-color: lightgray;
+    text-align: left;
+    padding-left:10px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    border-radius: 0px;
+    background-color: white;
+    font-size: 15px;
+    color: darkgray;
+    
+    
+}
+
+.cityInfo{
+    border: solid 1px;
+    border-color: lightgray;
+}
+
+.fiveDiv{
+    background-color: #0C7FF5;
+    border-radius: 5px;
+}
