@@ -13,9 +13,11 @@ let imgSrc = [];
 let searchHistoryList = [];
 searchHistoryList = fetchFromLocalStorageArray("Weather"); // fetch from local storage 
 apikey = "cc8238ec7b08d927f14deca758501d8f";
+let formattedDate;
 
 
 renderButtons();// Calling the renderButtons function at least once to display the initial list of cities
+cityCall("Toronto");
 
 function cityCall( cityName ){
     const escapeCityName = escape(cityName); 
@@ -204,8 +206,8 @@ function renderButtons() {
         
 function updatePage(){
     
-    
-    $("#cityName").html(`<h2>${citySearched} (${dateSearched[0]})</h2>`);
+    formattedDate = moment(dateSearched[0]).format('L');
+    $("#cityName").html(`<h2>${citySearched} (${formattedDate})</h2>`);
     $("#currentWeatherIcon").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[0]}@2x.png`);
     $("#tempMain").html(`Temperature: ${tempSearched[0]} &deg;F`);
     $("#humidityMain").html(`Humidity: ${humiditySearched[0]}`);
@@ -213,9 +215,47 @@ function updatePage(){
     //$("#uvMain").html(`${uvAmount}`); it is updated in getUvResponse()
     
 
-    // moments().today().format
-    // fill boxes
-    // opacity bazi 
-    // display empty message
+    formattedDate = moment(dateSearched[1]).format('L');
+    $("#data1").html(`<h4>${formattedDate}</h4>`);
+    $("#imgDay1").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[1]}.png`);
+    $("#temp1").html(`Temp: ${tempSearched[1]} &deg;F<br>`);
+    $("#humidity1").html(`Humidity: ${humiditySearched[1]}<br>`);
+
     
+    
+    formattedDate = moment(dateSearched[2]).format('L');
+    $("#data2").html(`<h4>${formattedDate}</h4>`);
+    $("#imgDay2").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[2]}.png`);
+    $("#temp2").html(`Temp: ${tempSearched[2]} &deg;F<br>`);
+    $("#humidity2").html(`Humidity: ${humiditySearched[2]}<br>`);
+
+    
+
+    formattedDate = moment(dateSearched[3]).format('L');
+    $("#data3").html(`<h4>${formattedDate}</h4>`);
+    $("#imgDay3").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[3]}.png`);
+    $("#temp3").html(`Temp: ${tempSearched[3]} &deg;F<br>`);
+    $("#humidity3").html(`Humidity: ${humiditySearched[3]}<br>`);
+
+    
+
+    formattedDate = moment(dateSearched[4]).format('L');
+    $("#data4").html(`<h4>${formattedDate}</h4>`);
+    $("#imgDay4").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[4]}.png`);
+    $("#temp4").html(`Temp: ${tempSearched[4]} &deg;F<br>`);
+    $("#humidity4").html(`Humidity: ${humiditySearched[4]}<br>`);
+
+    
+    // formattedDate = moment(dateSearched[5]).format('L');
+    // $("#data5").html(`<h4>${formattedDate}</h4>`);
+    // $("#imgDay5").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[5]}.png`);
+    // $("#temp5").html(`Temp: ${tempSearched[5]} &deg;F<br>`);
+    // $("#humidity5").html(`Humidity: ${humiditySearched[5]}<br>`);
+    
+    //changecolor
+    //avali ro bede, agar khalieh... toronto
+    // agar search mikone, reslult dareh (change color avali) - agaram nadareh (har chi az ghabl bood ro neshoon bede masalan tabriz!)
+    // display empty message
+    // maximum show last 10 
+
 }
