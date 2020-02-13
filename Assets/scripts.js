@@ -14,7 +14,7 @@ let searchHistoryList = [];
 searchHistoryList = fetchFromLocalStorageArray("Weather"); // fetch from local storage 
 apikey = "cc8238ec7b08d927f14deca758501d8f";
 let formattedDate;
-
+var A;
 
 renderButtons();// Calling the renderButtons function at least once to display the initial list of cities
 cityCall("Toronto");
@@ -29,23 +29,33 @@ function cityCall( cityName ){
 }
 function getCityResponse( response ){
     console.log(response);console.log("response");
-    dayCounter = 0; // initialize
+    
     citySearched = response.city.name;
     latSearched = response.city.coord.lat;
     lonSearched = response.city.coord.lon;
-    listIndicator = dayCounter;
-    while(dayCounter<5){
+    
+    A = ((24 - Number(response.list[0].dt_txt.split(" ")[1].split(":")[0]))/3)+3; // based on plus 3 (which is 9AM next day) the esult will give 1st element id
+    listIndicator = 0; // initialize
+    dayCounter = 0; // initialize
+    while(dayCounter<6){
+        console.log(listIndicator);
         tempSearched[dayCounter] = response.list[listIndicator].main.temp;
         humiditySearched[dayCounter] = response.list[listIndicator].main.humidity + "%";
         windSearched[dayCounter] = response.list[listIndicator].wind;
         iconSearched[dayCounter] = response.list[listIndicator].weather[0].icon; imgSrc[dayCounter] = "http://openweathermap.org/img/wn/" + escape(`${iconSearched[dayCounter]}@2x.png`);
-        //console.log(imgSrc[dayCounter]);
         dateSearched[dayCounter] = response.list[listIndicator].dt_txt.split(" ")[0];
-        $(`#imgDay${dayCounter+1}`).attr("src",imgSrc[dayCounter]); 
+        //$(`#imgDay${dayCounter+1}`).attr("src",imgSrc[dayCounter]); 
+        
+        listIndicator = A + (dayCounter * 8);
         dayCounter+=1;
-        listIndicator+=8;
-}
-            
+        if (listIndicator>39) listIndicator=39;
+        
+    }
+
+// list{0} - first element of hour - response.list[0].dt_txt.split(" ")[1].split(":")[0]
+// change to number - (24 - Number(response.list[0].dt_txt.split(" ")[1].split(":")[0]))/3
+// plus offset (daycounter=0) - A = ((24 - Number(response.list[0].dt_txt.split(" ")[1].split(":")[0]))/3)+dayCounter
+// bejoz avvali baghiye ghofle roo 9 sobh [0] , [A+3], [A+3+8], [A+3+8+8], [A+3+8+8+8] 
             
             // kheili moheme in ke escape har jaye estefeade nashe!
             //document.querySelector("#IMG").src = escape(imgSrc[i]); 
@@ -187,6 +197,7 @@ function renderButtons() {
         myBtn.attr("data-name", searchHistoryList[i]);
         // Providing the button's text with a value of the movie at index i
         myBtn.text(searchHistoryList[i]);
+        myBtn.attr("id" , "btn" + searchHistoryList[i]);
         
         // Adding the button to the HTML
         $("#buttonList").prepend(myBtn);
@@ -195,8 +206,9 @@ function renderButtons() {
                 // event.preventDefault() prevents the form from trying to submit itself.
                 // We're using a form so that the user can hit enter instead of clicking the button if they want
                 event.preventDefault();
-                console.log(event.target.getAttribute("data-name"));
+                console.log(event.target);
                 fromHistory=true;
+                //document.querySelector(`#${event.target.id}`).style.backgroundColor="red";
                 cityCall(event.target.getAttribute("data-name"));
                 
             });
@@ -216,46 +228,48 @@ function updatePage(){
     
 
     formattedDate = moment(dateSearched[1]).format('L');
-    $("#data1").html(`<h4>${formattedDate}</h4>`);
+    $("#data1").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay1").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[1]}.png`);
     $("#temp1").html(`Temp: ${tempSearched[1]} &deg;F<br>`);
-    $("#humidity1").html(`Humidity: ${humiditySearched[1]}<br>`);
+    $("#humidity1").html(`Humidity: ${humiditySearched[1]}`);
 
     
     
     formattedDate = moment(dateSearched[2]).format('L');
-    $("#data2").html(`<h4>${formattedDate}</h4>`);
+    $("#data2").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay2").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[2]}.png`);
     $("#temp2").html(`Temp: ${tempSearched[2]} &deg;F<br>`);
-    $("#humidity2").html(`Humidity: ${humiditySearched[2]}<br>`);
+    $("#humidity2").html(`Humidity: ${humiditySearched[2]}`);
 
     
 
     formattedDate = moment(dateSearched[3]).format('L');
-    $("#data3").html(`<h4>${formattedDate}</h4>`);
+    $("#data3").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay3").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[3]}.png`);
     $("#temp3").html(`Temp: ${tempSearched[3]} &deg;F<br>`);
-    $("#humidity3").html(`Humidity: ${humiditySearched[3]}<br>`);
+    $("#humidity3").html(`Humidity: ${humiditySearched[3]}`);
 
     
 
     formattedDate = moment(dateSearched[4]).format('L');
-    $("#data4").html(`<h4>${formattedDate}</h4>`);
+    $("#data4").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay4").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[4]}.png`);
     $("#temp4").html(`Temp: ${tempSearched[4]} &deg;F<br>`);
-    $("#humidity4").html(`Humidity: ${humiditySearched[4]}<br>`);
+    $("#humidity4").html(`Humidity: ${humiditySearched[4]}`);
 
+
+    console.log(iconSearched[5]);
+    formattedDate = moment(dateSearched[5]).format('L');
+    $("#data5").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
+    $("#imgDay5").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[5]}.png`);
+    $("#temp5").html(`Temp: ${tempSearched[5]} &deg;F<br>`);
+    $("#humidity5").html(`Humidity: ${humiditySearched[5]}`);
     
-    // formattedDate = moment(dateSearched[5]).format('L');
-    // $("#data5").html(`<h4>${formattedDate}</h4>`);
-    // $("#imgDay5").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[5]}.png`);
-    // $("#temp5").html(`Temp: ${tempSearched[5]} &deg;F<br>`);
-    // $("#humidity5").html(`Humidity: ${humiditySearched[5]}<br>`);
-    
-    //changecolor
-    //avali ro bede, agar khalieh... toronto
+
+    // change color buttons
     // agar search mikone, reslult dareh (change color avali) - agaram nadareh (har chi az ghabl bood ro neshoon bede masalan tabriz!)
-    // display empty message
+    // display empty message agar search result nadareh..
     // maximum show last 10 
+    // double check the units
 
 }
