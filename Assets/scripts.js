@@ -11,10 +11,11 @@ let dayCounter = 0;
 let fromHistory=false;
 let imgSrc = [];
 let searchHistoryList = [];
+let formattedDate;
+let offsetVal;
+
 searchHistoryList = fetchFromLocalStorageArray("Weather"); // fetch from local storage 
 apikey = "cc8238ec7b08d927f14deca758501d8f";
-let formattedDate;
-var A;
 
 renderButtons();// Calling the renderButtons function at least once to display the initial list of cities
 cityCall("Toronto");
@@ -28,36 +29,30 @@ function cityCall( cityName ){
     .fail( getCityError )
 }
 function getCityResponse( response ){
-    console.log(response);console.log("response");
+    //console.log(response);console.log("response");
     
     citySearched = response.city.name;
     latSearched = response.city.coord.lat;
     lonSearched = response.city.coord.lon;
     
-    A = ((24 - Number(response.list[0].dt_txt.split(" ")[1].split(":")[0]))/3)+3; // based on plus 3 (which is 9AM next day) the esult will give 1st element id
+    // based on plus 3 (which is 9AM next day) the esult will give 1st element id
+    offsetVal = ((24 - Number(response.list[0].dt_txt.split(" ")[1].split(":")[0]))/3)+3;
+
     listIndicator = 0; // initialize
     dayCounter = 0; // initialize
     while(dayCounter<6){
-        console.log(listIndicator);
+        //console.log(listIndicator);
         tempSearched[dayCounter] = response.list[listIndicator].main.temp;
         humiditySearched[dayCounter] = response.list[listIndicator].main.humidity + "%";
         windSearched[dayCounter] = response.list[listIndicator].wind;
         iconSearched[dayCounter] = response.list[listIndicator].weather[0].icon; imgSrc[dayCounter] = "http://openweathermap.org/img/wn/" + escape(`${iconSearched[dayCounter]}@2x.png`);
         dateSearched[dayCounter] = response.list[listIndicator].dt_txt.split(" ")[0];
-        //$(`#imgDay${dayCounter+1}`).attr("src",imgSrc[dayCounter]); 
-        
-        listIndicator = A + (dayCounter * 8);
+        listIndicator = offsetVal + (dayCounter * 8);
         dayCounter+=1;
         if (listIndicator>39) listIndicator=39;
-        
     }
 
-// list{0} - first element of hour - response.list[0].dt_txt.split(" ")[1].split(":")[0]
-// change to number - (24 - Number(response.list[0].dt_txt.split(" ")[1].split(":")[0]))/3
-// plus offset (daycounter=0) - A = ((24 - Number(response.list[0].dt_txt.split(" ")[1].split(":")[0]))/3)+dayCounter
-// bejoz avvali baghiye ghofle roo 9 sobh [0] , [A+3], [A+3+8], [A+3+8+8], [A+3+8+8+8] 
-            
-            // kheili moheme in ke escape har jaye estefeade nashe!
+            // moheme ke escape har jaye estefeade nashe...
             //document.querySelector("#IMG").src = escape(imgSrc[i]); 
             //document.querySelector("#IMG").src = imgSrc[i];
             //console.log($(`#imgDay1`).attr("src"));
@@ -86,10 +81,8 @@ function getCityResponse( response ){
                 //do nothing
             }
              
-            
+            // new city searched(or fetched from history list) and result exist
             updatePage();
-            console.log("searchBtn click DONE! -- new city searched and has result");
-            
 }
 function getCityError( errorStatus ) {
     console.log(`<.Fail> callback <${errorStatus}>`);
@@ -97,7 +90,7 @@ function getCityError( errorStatus ) {
     // better to tell user that there is no such city if errorStatus shows result as nothing found!! 
     // else show appropriate result like "right now, we can't connect to the server"
     $("#seachText").val("");
-    console.log("myBtn click DONE! -- I must update the page here");
+    
 }
 
 
@@ -177,27 +170,31 @@ $("#searchBtn").on("click", function(event) {
 
 function renderButtons() {
 
-    // Deleting the movie buttons prior to adding new movie buttons
+    // Deleting the city buttons prior to adding new city buttons
     // (this is necessary otherwise we will have repeat buttons)
     $("#buttonList").empty();
 
     var myBtn;
-    // Looping through the array of movies
+    // Looping through the array of cities
     for (var i = 0; i < searchHistoryList.length; i++) {
 
-        // Then dynamicaly generating buttons for each movie in the array.
+        // Then dynamicaly generating buttons for each city in the array.
         // This code $("<button>") is all jQuery needs to create the start and end tag. (<button></button>)
         myBtn = $("<button>");
+        
         // Adding a class    
         myBtn.addClass("historyBtn");
         myBtn.addClass("btn");
         myBtn.addClass("btn-light");
         myBtn.addClass("col-12");
-        // Adding a data-attribute with a value of the movie at index i
+        
+        // Adding a data-attribute with a value of the city at index i
         myBtn.attr("data-name", searchHistoryList[i]);
-        // Providing the button's text with a value of the movie at index i
-        myBtn.text(searchHistoryList[i]);
         myBtn.attr("id" , "btn" + searchHistoryList[i]);
+
+        // Providing the button's text with a value of the city at index i
+        myBtn.text(searchHistoryList[i]);
+
         
         // Adding the button to the HTML
         $("#buttonList").prepend(myBtn);
@@ -206,9 +203,12 @@ function renderButtons() {
                 // event.preventDefault() prevents the form from trying to submit itself.
                 // We're using a form so that the user can hit enter instead of clicking the button if they want
                 event.preventDefault();
-                console.log(event.target);
+                
                 fromHistory=true;
-                //document.querySelector(`#${event.target.id}`).style.backgroundColor="red";
+
+                //console.log(event.target);
+                //document.querySelector(`#${event.target.id}`).style.backgroundColor="...";
+                
                 cityCall(event.target.getAttribute("data-name"));
                 
             });
@@ -227,6 +227,7 @@ function updatePage(){
     //$("#uvMain").html(`${uvAmount}`); it is updated in getUvResponse()
     
 
+    //console.log(iconSearched[1]);
     formattedDate = moment(dateSearched[1]).format('L');
     $("#data1").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay1").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[1]}.png`);
@@ -234,7 +235,7 @@ function updatePage(){
     $("#humidity1").html(`Humidity: ${humiditySearched[1]}`);
 
     
-    
+    //console.log(iconSearched[2]);
     formattedDate = moment(dateSearched[2]).format('L');
     $("#data2").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay2").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[2]}.png`);
@@ -242,7 +243,7 @@ function updatePage(){
     $("#humidity2").html(`Humidity: ${humiditySearched[2]}`);
 
     
-
+    //console.log(iconSearched[3]);
     formattedDate = moment(dateSearched[3]).format('L');
     $("#data3").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay3").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[3]}.png`);
@@ -250,7 +251,7 @@ function updatePage(){
     $("#humidity3").html(`Humidity: ${humiditySearched[3]}`);
 
     
-
+    //console.log(iconSearched[4]);
     formattedDate = moment(dateSearched[4]).format('L');
     $("#data4").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay4").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[4]}.png`);
@@ -258,18 +259,11 @@ function updatePage(){
     $("#humidity4").html(`Humidity: ${humiditySearched[4]}`);
 
 
-    console.log(iconSearched[5]);
+    //console.log(iconSearched[5]);
     formattedDate = moment(dateSearched[5]).format('L');
     $("#data5").html(`<h4 style="font-size:20px;">${formattedDate}</h4>`);
     $("#imgDay5").attr("src","http://openweathermap.org/img/wn/" + `${iconSearched[5]}.png`);
     $("#temp5").html(`Temp: ${tempSearched[5]} &deg;F<br>`);
     $("#humidity5").html(`Humidity: ${humiditySearched[5]}`);
-    
-
-    // change color buttons
-    // agar search mikone, reslult dareh (change color avali) - agaram nadareh (har chi az ghabl bood ro neshoon bede masalan tabriz!)
-    // display empty message agar search result nadareh..
-    // maximum show last 10 
-    // double check the units
 
 }
