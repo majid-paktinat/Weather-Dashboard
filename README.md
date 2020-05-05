@@ -1,7 +1,7 @@
 
 # Weather-Dashboard
 
-I uesed [OpenWeather API](https://openweathermap.org/api) to retrieve weather data for cities. Searched cities are being saved in `localStorage` and get fetched.
+I used [OpenWeather API](https://openweathermap.org/api) to retrieve weather data for cities. Searched cities are being saved in `localStorage` and get fetched.
 
 
 ## business rules: 
@@ -10,8 +10,6 @@ if an existing city again typed in the search box and get searched, then it will
 
 ## The following demonstrates the API info:
 
-
-## https://home.openweathermap.org/api_keys   cc8238ec7b08d927f14deca758501d8f
 
 ## units
 ```
